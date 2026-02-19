@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login and Signup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom fade animation */
+    .fade-enter {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .fade-enter-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+  </style>
+</head>
+<body id="pageBody" class="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 to-blue-200 transition-colors duration-500">
+
+  <!-- Card container -->
+  <div id="card" class="bg-white shadow-xl rounded-xl w-[400px] max-w-full p-8 fade-enter fade-enter-active">
+
+    <!-- Dynamic Heading -->
+    <h2 id="formHeading" class="text-3xl font-bold text-center mb-8 text-gray-800">Login Form</h2>
+
+    <!-- Form -->
+    <form id="mainForm" class="space-y-5">
+      <!-- Username (only for Signup) -->
+      <div id="usernameBox" style="display:none;">
+        <label for="username" class="block text-gray-700 font-medium">Username</label>
+        <input id="username" type="text" 
+          class="w-full py-3 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all placeholder-gray-400" 
+          placeholder="Type your username">
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-gray-700 font-medium">Email</label>
+        <input id="email" type="email" 
+          class="w-full py-3 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all placeholder-gray-400" 
+          placeholder="Enter your email address">
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="password" class="block text-gray-700 font-medium">Password</label>
+        <input id="password" type="password" 
+          class="w-full py-3 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all placeholder-gray-400" 
+          placeholder="Enter password">
+      </div>
+
+      <!-- Forgot Password -->
+      <div class="flex justify-end">
+        <a href="#" class="text-sm text-blue-600 hover:underline">Forgot Password?</a>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" id="submitBtn" 
+        class="w-full py-3 px-4 rounded-lg shadow-md hover:shadow-lg active:scale-[0.98] bg-blue-500 hover:bg-blue-600 text-white font-semibold transition-transform">
+        Login
+      </button>
+    </form>
+
+    <!-- Signup Prompt -->
+    <p id="signupPrompt" class="text-center text-sm text-gray-600 mt-6">
+      Don’t have an account? 
+      <a href="#" id="signupLink" class="text-blue-600 font-semibold hover:underline">Signup</a>
+    </p>
+
+    <!-- Back to Login Prompt (hidden initially) -->
+    <p id="loginPrompt" class="text-center text-sm text-gray-600 mt-6" style="display:none;">
+      Already have an account? 
+      <a href="#" id="loginLink" class="text-blue-600 font-semibold hover:underline">Back to Login</a>
+    </p>
+  </div>
+
+  <script>
+    const signupLink = document.getElementById("signupLink");
+    const loginLink = document.getElementById("loginLink");
+    const formHeading = document.getElementById("formHeading");
+    const submitBtn = document.getElementById("submitBtn");
+    const usernameBox = document.getElementById("usernameBox");
+    const pageBody = document.getElementById("pageBody");
+    const signupPrompt = document.getElementById("signupPrompt");
+    const loginPrompt = document.getElementById("loginPrompt");
+    const card = document.getElementById("card");
+
+    function animateCard() {
+      card.classList.remove("fade-enter-active");
+      void card.offsetWidth; // trigger reflow
+      card.classList.add("fade-enter-active");
+    }
+
+    signupLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      formHeading.textContent = "Signup Form";
+      usernameBox.style.display = "block";
+      submitBtn.textContent = "Signup";
+      signupPrompt.style.display = "none";
+      loginPrompt.style.display = "block";
+      pageBody.className = "min-h-screen flex items-center justify-center bg-gradient-to-r from-green-100 to-teal-100 transition-colors duration-500";
+      animateCard();
+    });
+
+    loginLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      formHeading.textContent = "Login Form";
+      usernameBox.style.display = "none";
+      submitBtn.textContent = "Login";
+      loginPrompt.style.display = "none";
+      signupPrompt.style.display = "block";
+      pageBody.className = "min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 to-blue-200 transition-colors duration-500";
+      animateCard();
+    });
+  </script>
+
+</body>
+</html>
